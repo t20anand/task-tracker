@@ -4,7 +4,7 @@ services:
     image: node:18
     container_name: backend-api
     working_dir: /app 
-    # restart: unless-stopped
+    # restart: on-failure
     ports:
       - 5000:5000
     volumes:
@@ -17,7 +17,7 @@ services:
     image: node:16
     container_name: frontend
     working_dir: /app 
-    # restart: unless-stopped
+    # restart: on-failure
     ports:
       - 3000:3000
     volumes:
@@ -29,7 +29,7 @@ services:
   database:
     image: mongo:6.0
     container_name: database
-    # restart: unless-stopped
+    restart: on-failure
     ports:
       - 27017:27017
     environment:
@@ -41,7 +41,7 @@ services:
   mongo-express:
     image: mongo-express
     container_name: mexpress
-    # restart: unless-stopped
+    restart: on-failure
     ports:
       - 8081:8081
     environment:
