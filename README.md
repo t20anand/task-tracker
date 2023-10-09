@@ -2,12 +2,20 @@
 Task Priority and Deadline Tracker
 
 ## Running on local system
+
+### Install Dependencies
+1. Run `npm install` inside backend folder
+2. Run `npm install` inside frontend folder
+
+### Build and run the containers
 The command `docker-compose up -d` will build the containers and run it.
 
-### Frontend
+
+
+### URL Frontend
 Url for accessing frontend: `http://localhost:3000`
 
-### Backend
+### URL Backend
 Url for accessing backend api: `http://localhost:5000`
 
 ### Database

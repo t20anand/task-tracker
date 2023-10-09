@@ -5,10 +5,6 @@ const PriorityController = require('../../controllers/PriorityController');
 const AuthController = require('../../controllers/AuthController');
 const passport = require('passport')
 
-// const PriorityRequestValidator = require('../../requests/PriorityRequest');
-
-// ApiRoute.post('/priority', [PriorityRequestValidator], PriorityController.create);
-
 
 ApiRoute.post('/priority', passport.authenticate('accessToken', { session: false }), PriorityController.create);
 ApiRoute.get('/priority', passport.authenticate('accessToken', { session: false }), PriorityController.findAll);
