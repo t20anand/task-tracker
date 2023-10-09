@@ -1,0 +1,55 @@
+version: "3.8"
+services:
+  backend-api:
+    image: node:18
+    container_name: backend-api
+    working_dir: /app 
+    restart: unless-stopped
+    ports:
+      - 5000:5000
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - database
+    command: npm install && npm run dev
+    
+  frontend:
+    image: node:16
+    container_name: frontend
+    working_dir: /app 
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend-api
+    command: npm install && npm start
+
+  database:
+    image: mongo:6.0
+    container_name: database
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    environment:
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - ./data:/data/db
+
+  mongo-express:
+    image: mongo-express
+    container_name: mexpress
+    restart: unless-stopped
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - ME_CONFIG_MONGODB_URL=mongodb://root:password@database:27017/?authSource=admin
+      - ME_CONFIG_BASICAUTH_USERNAME=mexpress
+      - ME_CONFIG_BASICAUTH_PASSWORD=mexpress
+    depends_on:
+      - database
+    
